@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.css"
+    />
+  </head>
+  <body>
+    <form action="javascript:void(0);">
+      <label for="title">Enter Your Movie!</label>
+      <input type="text" id="title" name="title" />
+      <label for="rating">Enter Movie Rating!</label>
+      <input type="range" id="rating" name="rating" min="0" max="10" />
+      <button id="submit">Submit</button>
+    </form>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const $ol = $("<ol>").css("margin-top","30px");
+      $("form").after($ol);
+
+      $("body").on("click", "#submit", function () {
+      
+        const $MovieName = $("#title").val();
+        const $MovieRating = $("#rating").val();
+
+        if ($MovieName.length < 2) {
+          alert("Title Should have at least two characters!");
+
+        } else {
+
+          const $span = $("<span>").css("padding-left","5px");
+
+          const $RemoveBtn = $("<button>")
+            .attr("class", "remove-movie")
+            .text("X");
+
+          $span.append($RemoveBtn);
+
+          const $li = $("<li>")
+            .attr("class", "movie")
+            .html(`Movie <b>${$MovieName}</b>, has a rating of <b>${$MovieRating}</b>`);
+
+          $li.append($span);
+
+          $ol.append($li);
+          
+          $("#title").val("");
+          $("#rating").val(0);
+        }
+      });
+
+      $("body").on("click", ".remove-movie", function () {
+        $(this).parents(".movie").remove();
+      });
+    </script>
+  </body>
+</html>
